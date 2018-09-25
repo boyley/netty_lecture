@@ -9,9 +9,20 @@ import io.netty.util.CharsetUtil;
 
 import java.net.URI;
 
+/**
+ * 方法执行流程：
+ * added
+ * registered
+ * active
+ * channelRead0
+ * inactive
+ * unregistered
+ */
 public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObject> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
+        System.out.println(msg.getClass());
+        System.out.println(ctx.channel().remoteAddress());
         if (msg instanceof HttpRequest) {
             HttpRequest httpRequest = (HttpRequest) msg;
             System.out.println("请求方法：" + httpRequest.method().name());
